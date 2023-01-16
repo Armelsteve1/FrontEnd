@@ -27,8 +27,8 @@ const Capsule = () => {
   }, [])
   return (
     <>
-    <h1># Capsules</h1>
     <table>
+        <caption> <h1># Capsules</h1></caption>
       <thead>
         <tr>
           <th>Serial</th>

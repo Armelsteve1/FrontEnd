@@ -1,7 +1,14 @@
+
+div{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
 table {
     border-collapse: collapse;
     width: 50%;
     margin: 20px;
+    
   }
   
   th, td {
