@@ -1,11 +1,12 @@
-import './App.css';
+import './App.css'
+import Capsule from './Component/capsules/Capsules.tsx'
 
 function App() {
   return (
     <div >
-      Armel
+     <Capsule></Capsule>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
