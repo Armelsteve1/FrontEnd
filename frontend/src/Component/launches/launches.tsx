@@ -12,6 +12,8 @@ const Launches = () => {
     error = "404"
     return { error }
   }
+
+  const [showTable, setShowTable] = useState(false)
   const [launchesData, setLaunchesData] = useState<LaunchesProps[]>([]);
 
   useEffect(() => {
@@ -25,11 +27,16 @@ const Launches = () => {
         setError(error.message);
       })
   }, [])
+
+  const handleButtonClick = () => {
+    setShowTable(true)
+  }
   return (
-    <div>
-    
-    <table>
-        <caption><h1># Launches</h1></caption>
+  <div>
+  
+   <caption><button onClick={handleButtonClick}> <h1>Show launches</h1></button> </caption>
+      {showTable && ( 
+      <table>
       <thead>
         <tr>
           <th>Name</th>
@@ -44,9 +51,10 @@ const Launches = () => {
             <td>{launches.details}</td>
             <td>{launches.ships.length}</td>
           </tr>
-        ))}
+          ))}
       </tbody>
-    </table>
+      </table>
+    )}
     </div> 
   )
 }
