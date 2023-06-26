@@ -20,3 +20,8 @@ table {
   th {
     background-color: #f2f2f2;
   }
+
+  button{
+    margin-top: 20px;
+    margin-left: 20px;
+  }

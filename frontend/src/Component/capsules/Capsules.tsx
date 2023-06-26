@@ -1,61 +1,48 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
-import './Style.css'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./Style.css";
 
 interface CapsuleProps {
-  serial: string,
-  type: string,
-  status: string,
+  serial: string;
+  type: string;
+  status: string;
 }
 
 const Capsule = () => {
   const setError = (error: string) => {
-    error = "404"
-    return { error }
-  }
+    error = "404";
+    return { error };
+  };
 
-  const [showTable, setShowTable] = useState(false)
+  const [showTable, setShowTable] = useState(false);
   const [capsulesData, setCapsulesData] = useState<CapsuleProps[]>([]);
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://api.spacexdata.com/v4/capsules")
-        setCapsulesData(response.data)
-        if ('caches' in window) {
-          const cache = await caches.open('capsules')
-          await cache.put('https://api.spacexdata.com/v4/capsules', new Response(JSON.stringify(response.data)))
-        }
-      } catch (error) {
-        setError(error.message)
-      }
-    }
-
-    if ('caches' in window) {
-      caches.match('https://api.spacexdata.com/v4/capsules').then((response) => {
-        if (response) {
-          response.json().then((data) => {
-            setCapsulesData(data)
-          })
-        } else {
-          fetchData()
-        }
+    axios
+      .get("https://api.spacexdata.com/v4/capsules")
+      .then((response) => {
+        setCapsulesData(response.data);
       })
-    } else {
-      fetchData()
-    }
-  }, [])
+      .catch((error) => {
+        setError(error.message);
+      });
+  }, []);
 
   const handleButtonClick = () => {
-    setShowTable(true)
-  }
+    setShowTable(!showTable);
+  };
 
   return (
     <>
-    <caption><button onClick={handleButtonClick}> <h1>Show Capsules</h1></button> </caption>
-      {showTable && ( 
+      <caption>
+        <button onClick={handleButtonClick}>
+          <h1>{showTable ? "Hide Capsules" : "Show Capsules"}</h1>
+        </button>
+      </caption>
+      {showTable && (
         <table>
-          <caption> <h1># Capsules</h1></caption>
+          <caption>
+            <h1># Capsules</h1>
+          </caption>
           <thead>
             <tr>
               <th>Serial</th>
@@ -75,7 +62,7 @@ const Capsule = () => {
         </table>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Capsule
+export default Capsule;
